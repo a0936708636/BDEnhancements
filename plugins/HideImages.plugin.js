@@ -6,7 +6,7 @@ hideImages.prototype.data = {};
 hideImages.prototype.dataVersion = "1";
 hideImages.prototype.defaultData = function() {
     return {
-      version:"1"
+        version: "1"
     };
 }
 hideImages.prototype.loadData = function() {
@@ -76,7 +76,11 @@ hideImages.prototype.stop = function() {
 };
 
 hideImages.prototype.onMessage = function() {
-    setTimeout(this.act(), 2000);
+    this.act();
+    setTimeout(this.act, 200);
+    setTimeout(this.act, 400);
+    setTimeout(this.act, 600);
+    setTimeout(this.act, 2000);
 };
 
 hideImages.prototype.onSwitch = function() {
@@ -160,7 +164,7 @@ hideImages.prototype.getDescription = function() {
 };
 
 hideImages.prototype.getVersion = function() {
-    return "0.2.2";
+    return "0.2.3";
 };
 
 hideImages.prototype.getAuthor = function() {
