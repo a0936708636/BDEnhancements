@@ -77,14 +77,15 @@ hideImages.prototype.stop = function() {
 
 hideImages.prototype.onMessage = function() {
     this.act();
-    setTimeout(this.act, 200);
-    setTimeout(this.act, 400);
-    setTimeout(this.act, 600);
-    setTimeout(this.act, 2000);
+    var self = this;
+    setTimeout(function() {
+        self.act();
+    }, 200);
 };
 
 hideImages.prototype.onSwitch = function() {
     this.act();
+    var self = this;
 };
 
 hideImages.prototype.observer = function(e) {

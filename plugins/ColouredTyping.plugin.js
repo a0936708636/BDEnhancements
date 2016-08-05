@@ -46,13 +46,15 @@ colouredTyping.prototype.onMessage = function() {
     var color = $(".message .user-name").last().css("color");
     this.data[username] = color;
     this.saveData();
-    console.log(username + " is " + color);
 };
 
 colouredTyping.prototype.start = function() {
     this.loadData();
     this.colourize();
-    setTimeout(this.colourize, 200);
+    var self = this;
+    setTimeout(function() {
+        self.colourize()
+    }, 200);
 };
 
 colouredTyping.prototype.stop = function() {
@@ -63,7 +65,10 @@ colouredTyping.prototype.stop = function() {
 colouredTyping.prototype.onSwitch = function() {
     this.decolourize();
     this.colourize();
-    setTimeout(this.colourize, 200);
+    var self = this;
+    setTimeout(function() {
+        self.colourize()
+    }, 200);
 };
 
 colouredTyping.prototype.observer = function(e) {
@@ -71,7 +76,10 @@ colouredTyping.prototype.observer = function(e) {
         // IDK WHY IT
         this.colourize();
         // SOMETIMES DOESN'T WORK
-        setTimeout(this.colourize, 200);
+        var self = this;
+        setTimeout(function() {
+            self.colourize()
+        }, 200);
     }
 };
 
