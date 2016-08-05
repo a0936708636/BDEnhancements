@@ -31,10 +31,12 @@ hideImages.prototype.extractChannelID = function(str) {
     return $(".channel a:contains('" + res + "')").attr("href").match(/[0-9]+\/([0-9]+)/)[1];
 };
 hideImages.prototype.getServerID = function() {
-    return $(".guild.selected a").attr("href").match(/([0-9]+)\/[0-9]+/)[1];
+    var serverLink = $(".guild.selected a").attr("href");
+    return serverLink ? serverLink.match(/([0-9]+)\/[0-9]+/)[1] : undefined;
 };
 hideImages.prototype.getChannelID = function() {
-    return $(".guild.selected a").attr("href").match(/[0-9]+\/([0-9]+)/)[1];
+    var channelLink = $(".guild.selected a").attr("href");
+    return channelLink ? channelLink.match(/[0-9]+\/([0-9]+)/)[1] : undefined;
 };
 
 hideImages.prototype.hideImages = function() {
@@ -137,12 +139,11 @@ hideImages.prototype.observer = function(e) {
                     self.data[serverID] = {};
                 }
                 var hideImage = self.data[self.getServerID()][self.getChannelID()] ? false : true;
-                var channels = $(".channel-name");
-                for (var i = 0; i < channels.length; i++) {
-                    var chan = self.extractChannelID("#" + channels[i].innerHTML);
-                    if (chan == undefined) continue;
+                $(".channel-name").each(function(index) {
+                    var chan = self.extractChannelID("#" + this.innerHTML);
+                    if (chan == undefined) return true;
                     self.data[self.getServerID()][chan] = hideImage;
-                };
+                });
                 self.saveData();
                 self.act();
                 $(".context-menu").css("display", "none");
