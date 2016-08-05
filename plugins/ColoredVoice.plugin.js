@@ -73,7 +73,6 @@ coloredVoice.prototype.onSwitch = function() {
 };
 
 coloredVoice.prototype.observer = function(e) {
-    console.log(e);
     var node = null;
     if ((e.addedNodes.length > 0 && e.addedNodes[0].localName &&
             e.addedNodes[0].localName.indexOf("ul") != -1) ||
