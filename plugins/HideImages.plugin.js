@@ -136,11 +136,12 @@ hideImages.prototype.observer = function(e) {
                     self.data[serverID] = {};
                 }
                 var hideImage = self.data[self.getServerID()][self.getChannelID()] ? false : true;
-                $(".channel-name").each(function(index) {
-                    var chan = self.extractChannelID("#" + this.innerHTML);
-                    if (chan == undefined) return true;
+                var channels = $(".channel-name");
+                for (var i = 0; i < channels.length; i++) {
+                    var chan = self.extractChannelID("#" + channels[i].innerHTML);
+                    if (chan == undefined) continue;
                     self.data[self.getServerID()][chan] = hideImage;
-                });
+                };
                 self.saveData();
                 self.act();
                 $(".context-menu").css("display", "none");
@@ -164,7 +165,7 @@ hideImages.prototype.getDescription = function() {
 };
 
 hideImages.prototype.getVersion = function() {
-    return "0.2.3";
+    return "0.2.4";
 };
 
 hideImages.prototype.getAuthor = function() {
