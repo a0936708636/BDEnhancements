@@ -1,15 +1,15 @@
-//META{"name":"hideImages"}*//
+//META{"name":"HideImages"}*//
 
-var hideImages = function() {};
+var HideImages = function() {};
 
-hideImages.prototype.data = {};
-hideImages.prototype.dataVersion = "1";
-hideImages.prototype.defaultData = function() {
+HideImages.prototype.data = {};
+HideImages.prototype.dataVersion = "1";
+HideImages.prototype.defaultData = function() {
     return {
         version: "1"
     };
 }
-hideImages.prototype.loadData = function() {
+HideImages.prototype.loadData = function() {
     this.data = (localStorage.HideImages) ? JSON.parse(localStorage.HideImages) : {
         version: "0"
     }
@@ -20,37 +20,37 @@ hideImages.prototype.loadData = function() {
     };
 };
 
-hideImages.prototype.saveData = function() {
+HideImages.prototype.saveData = function() {
     localStorage.HideImages = JSON.stringify(this.data);
 };
 
-hideImages.prototype.extractChannelID = function(str) {
+HideImages.prototype.extractChannelID = function(str) {
     var res = str.match(/#([a-z\-]+)/);
     if (!res) return;
     res = res[1];
     return $(".channel a:contains('" + res + "')").attr("href").match(/[0-9]+\/([0-9]+)/)[1];
 };
-hideImages.prototype.getServerID = function() {
+HideImages.prototype.getServerID = function() {
     var serverLink = $(".guild.selected a").attr("href");
     return serverLink ? serverLink.match(/([0-9]+)\/[0-9]+/)[1] : undefined;
 };
-hideImages.prototype.getChannelID = function() {
+HideImages.prototype.getChannelID = function() {
     var channelLink = $(".guild.selected a").attr("href");
     return channelLink ? channelLink.match(/[0-9]+\/([0-9]+)/)[1] : undefined;
 };
 
-hideImages.prototype.hideImages = function() {
+HideImages.prototype.hideImages = function() {
     $(".embed-image").css("display", "none");
     $(".embed-thumbnail").css("display", "none");
     $(".attachment-image").css("display", "none");
 }
-hideImages.prototype.showImages = function() {
+HideImages.prototype.showImages = function() {
 
     $(".embed-image").css("display", "block");
     $(".embed-thumbnail").css("display", "block");
     $(".attachment-image").css("display", "block");
 }
-hideImages.prototype.act = function() {
+HideImages.prototype.act = function() {
     var serverID = this.getServerID();
     var channelID = this.getChannelID();
     if (this.data[serverID] == undefined) {
@@ -64,20 +64,20 @@ hideImages.prototype.act = function() {
 };
 
 // unused
-hideImages.prototype.load = function() {};
-hideImages.prototype.unload = function() {};
+HideImages.prototype.load = function() {};
+HideImages.prototype.unload = function() {};
 // unused
 
-hideImages.prototype.start = function() {
+HideImages.prototype.start = function() {
     this.loadData();
     this.act();
 };
 
-hideImages.prototype.stop = function() {
+HideImages.prototype.stop = function() {
     this.showImages();
 };
 
-hideImages.prototype.onMessage = function() {
+HideImages.prototype.onMessage = function() {
     this.act();
     var self = this;
     setTimeout(function() {
@@ -85,13 +85,14 @@ hideImages.prototype.onMessage = function() {
     }, 200);
 };
 
-hideImages.prototype.onSwitch = function() {
+HideImages.prototype.onSwitch = function() {
     this.act();
     var self = this;
 };
 
-hideImages.prototype.observer = function(e) {
-    if (e.addedNodes.length > 0 && e.addedNodes[0].className && e.addedNodes[0].className.indexOf('context-menu') != -1) {
+HideImages.prototype.observer = function(e) {
+    // add button to the context menu
+    if (e.addedNodes.length > 0 && e.addedNodes[0].classList && e.addedNodes[0].classList.contains('context-menu')) {
         var elem = document.getElementsByClassName('context-menu')[0];
         if (!elem) return;
         elem = elem.children[0]; // context menu
@@ -154,22 +155,22 @@ hideImages.prototype.observer = function(e) {
     }
 };
 
-hideImages.prototype.getSettingsPanel = function() {
+HideImages.prototype.getSettingsPanel = function() {
     return "";
 };
 
-hideImages.prototype.getName = function() {
+HideImages.prototype.getName = function() {
     return "Hide Images";
 };
 
-hideImages.prototype.getDescription = function() {
+HideImages.prototype.getDescription = function() {
     return "Adds a button to the right-click menu to hide images on certain servers and channels.";
 };
 
-hideImages.prototype.getVersion = function() {
+HideImages.prototype.getVersion = function() {
     return "0.2.4";
 };
 
-hideImages.prototype.getAuthor = function() {
+HideImages.prototype.getAuthor = function() {
     return "Anxeal";
 };
