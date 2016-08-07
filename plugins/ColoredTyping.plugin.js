@@ -72,14 +72,17 @@ ColoredTyping.prototype.onSwitch = function() {
 
 ColoredTyping.prototype.observer = function(e) {
     if (e.addedNodes.length && e.addedNodes[0].classList && e.addedNodes[0].classList.contains("typing")) {
+        this.decolorize();
         this.colorize();
     }
     if ((e.addedNodes.length && e.addedNodes[0].localName === "strong") ||
         (e.addedNodes.length && e.addedNodes[0].classList && e.addedNodes[0].classList.contains("spinner"))) {
+        this.decolorize();
         this.colorize();
     }
     if ((e.removedNodes.length && e.removedNodes[0].localName === "strong") ||
         (e.removedNodes.length && e.removedNodes[0].classList && e.removedNodes[0].classList.contains("spinner"))) {
+        this.decolorize();
         this.colorize();
     }
 };
@@ -97,7 +100,7 @@ ColoredTyping.prototype.getDescription = function() {
 };
 
 ColoredTyping.prototype.getVersion = function() {
-    return "0.1.5";
+    return "0.1.6";
 };
 
 ColoredTyping.prototype.getAuthor = function() {
