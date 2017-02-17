@@ -21,7 +21,7 @@ ColoredVoice.prototype.loadData = function() {
 };
 
 ColoredVoice.prototype.saveData = function() {
-    bdStorage.set('ColoredTyping',JSON.strintify(this.data));
+    bdStorage.set('ColoredTyping',JSON.stringify(this.data));
 };
 
 ColoredVoice.prototype.colorize = function() {
