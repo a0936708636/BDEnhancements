@@ -10,9 +10,9 @@ ColoredVoice.prototype.defaultData = function() {
 }
 ColoredVoice.prototype.loadData = function() {
     // using the same data as ColoredTyping
-    this.data = (localStorage.ColoredTyping) ? JSON.parse(localStorage.ColoredTyping) : {
-        version: "0"
-    };
+    this.data = (bdStorage.get('ColoredTyping')) ? JSON.parse(bdStorage.get('ColoredTyping')) : {
+        version: '0'
+    }
     if (this.data.version != this.dataVersion) {
         // wew lad we're using a new way to save our data
         this.data = this.defaultData();
@@ -21,7 +21,7 @@ ColoredVoice.prototype.loadData = function() {
 };
 
 ColoredVoice.prototype.saveData = function() {
-    localStorage.ColoredTyping = JSON.stringify(this.data);
+    bdStorage.set('ColoredTyping',JSON.strintify(this.data));
 };
 
 ColoredVoice.prototype.colorize = function() {

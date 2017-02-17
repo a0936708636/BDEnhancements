@@ -9,8 +9,8 @@ ColoredTyping.prototype.defaultData = function() {
     };
 }
 ColoredTyping.prototype.loadData = function() {
-    this.data = (localStorage.ColoredTyping) ? JSON.parse(localStorage.ColoredTyping) : {
-        version: "0"
+    this.data = (bdStorage.get('ColoredTyping')) ? JSON.parse(bdStorage.get('ColoredTyping')) : {
+        version: '0'
     };
     if (this.data.version != this.dataVersion) {
         // wew lad we're using a new way to save our data
@@ -20,7 +20,7 @@ ColoredTyping.prototype.loadData = function() {
 };
 
 ColoredTyping.prototype.saveData = function() {
-    localStorage.ColoredTyping = JSON.stringify(this.data);
+    bdStorage.set('ColoredTyping',JSON.stringify(this.data)); 
 };
 
 ColoredTyping.prototype.colorize = function() {
