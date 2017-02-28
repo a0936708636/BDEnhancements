@@ -67,7 +67,7 @@ ResizeX.prototype.getDescription = function() {
 };
 
 ResizeX.prototype.getVersion = function() {
-    return "0.0.1";
+    return "0.0.2";
 };
 
 ResizeX.prototype.getAuthor = function() {
