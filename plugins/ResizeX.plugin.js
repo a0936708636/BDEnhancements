@@ -26,7 +26,7 @@ ResizeX.prototype.stop = function() {
 ResizeX.prototype.observer = function(e) {
     if (e.addedNodes.length && e.addedNodes[0].classList && e.addedNodes[0].classList.contains("embed-thumbnail-video")) {
 
-        $("iframe.image:not(:has(+ .resizex-handle))").after("<div class='resizex-handle'><div class='resizex-icon'/></div>");
+        $(".embed-thumbnail-video iframe.image:not(:has(+ .resizex-handle))").after("<div class='resizex-handle'><div class='resizex-icon'/></div>");
 
         $(document).add("*").off(".resizex");
 
@@ -67,7 +67,7 @@ ResizeX.prototype.getDescription = function() {
 };
 
 ResizeX.prototype.getVersion = function() {
-    return "0.0.2";
+    return "0.0.3";
 };
 
 ResizeX.prototype.getAuthor = function() {
