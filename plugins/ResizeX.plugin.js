@@ -1,4 +1,5 @@
 //META{"name":"ResizeX"}*//
+
 var resizexDragging = false;
 var resizexHandle;
 var resizexWidth;
@@ -6,21 +7,20 @@ var resizexX;
 var resizexY;
 var resizexAspectRatio;
 
-var resizexStyle = document.createElement("style");
-resizexStyle.id = "resizex-style";
-resizexStyle.appendChild(document.createTextNode("*{-webkit-user-select:none!important;cursor:nwse-resize!important;}"));
-
 var ResizeX = function() {};
 
 // unused
 ResizeX.prototype.load = function() {};
 ResizeX.prototype.unload = function() {};
 ResizeX.prototype.onMessage = function() {};
-ResizeX.prototype.stop = function() {};
 // unused
 
 ResizeX.prototype.start = function() {
-	$(document.body).append('<style>@font-face{font-family:Batch;src:url(https://cdn.rawgit.com/AdamWhitcroft/batch/a3640352/Webfont/batch-icons-webfont.ttf)}.resizex-icon::before{content:"\\F0A5";transform:scaleX(-1);display:inline-block;margin-top:8px;draggable:false!important}.resizex-handle{box-sizing:border-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:reverse;flex-direction:row-reverse;-webkit-box-pack:justify;justify-content:space-between;-webkit-box-align:center;align-items:center;cursor:nwse-resize;draggable:false!important;font-family:Batch;min-width:none!important}iframe.image{min-width:400px;max-width:none!important}</style>');
+	BdApi.injectCSS("resizex-style",'@font-face{font-family:Batch;src:url(https://cdn.rawgit.com/AdamWhitcroft/batch/a3640352/Webfont/batch-icons-webfont.ttf)}.resizex-icon::before{content:"\\F0A5";transform:scaleX(-1);display:inline-block;margin-top:8px;draggable:false!important}.resizex-handle{box-sizing:border-box;display:flex;-webkit-box-orient:horizontal;-webkit-box-direction:reverse;flex-direction:row-reverse;-webkit-box-pack:justify;justify-content:space-between;-webkit-box-align:center;align-items:center;cursor:nwse-resize;draggable:false!important;font-family:Batch;min-width:none!important}iframe.image{min-width:400px;max-width:none!important}');
+};
+
+ResizeX.prototype.stop = function() {
+	BdApi.clearCSS("resizex-style");
 };
 
 ResizeX.prototype.observer = function(e) {
@@ -38,8 +38,8 @@ ResizeX.prototype.observer = function(e) {
             resizexHandle = this;
             resizexAspectRatio = $(this).siblings().height() / $(this).siblings().width();
             $(this).siblings().css("pointer-events", "none");
-            if (!document.contains(document.getElementById("resizex-style"))) document.documentElement.insertBefore(resizexStyle, null);
-        });
+            BdApi.injectCSS("resizex-dragging","*{-webkit-user-select:none!important;cursor:nwse-resize!important;}");
+		});
 
         $(document).on("mousemove.resizex", function(e) {
             if (resizexDragging) {
@@ -49,7 +49,7 @@ ResizeX.prototype.observer = function(e) {
         }).on("mouseup.resizex", function() {
             resizexDragging = false;
             $(resizexHandle).siblings().css("pointer-events", "");
-            if (document.contains(document.getElementById("resizex-style"))) document.documentElement.removeChild(resizexStyle);
+            BdApi.clearCSS("resizex-dragging");
         });
     }
 };
