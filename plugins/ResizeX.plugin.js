@@ -89,7 +89,7 @@ ResizeX.prototype.getName = function() {
 };
 
 ResizeX.prototype.getDescription = function() {
-    return "Makes videos and images resizable";
+    return "Lets you resize videos and images";
 };
 
 ResizeX.prototype.getVersion = function() {
