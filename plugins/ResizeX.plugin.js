@@ -40,7 +40,7 @@ ResizeX.prototype.stop = function() {
     $(document).add("*").off(".resizex");
 };
 
-ResizeX.prototype.onSwitch = function() {
+/*ResizeX.prototype.onSwitch = function() {
     $("img[src*='discordapp']")
         .one("mousedown.resizex", function() {
             resizexWidth = $(this).width();
@@ -66,7 +66,7 @@ ResizeX.prototype.onSwitch = function() {
             if (resizexDragging)
                 return false;
         });
-};
+};*/
 
 ResizeX.prototype.observer = function(e) {
     if (e.addedNodes.length && e.addedNodes[0].classList && e.addedNodes[0].classList.contains("embed-thumbnail-video")) {
@@ -81,7 +81,7 @@ ResizeX.prototype.observer = function(e) {
                 BdApi.injectCSS("resizex-dragging", "iframe{pointer-events:none;}*{-webkit-user-select:none!important;cursor:nwse-resize!important;}");
             });
     }
-    if (e.addedNodes.length && $(e.addedNodes[0]).attr("src") && $(e.addedNodes[0]).attr("src").indexOf("discordapp") != -1 && $(e.addedNodes[0]).parent().attr('class').indexOf("embed-thumbnail-video") == -1) {
+    if (e.addedNodes.length && $(e.addedNodes[0]).attr("src") && $(e.addedNodes[0]).attr("src").indexOf("discordapp") != -1 && ($(e.addedNodes[0]).parent().attr('class')?$(e.addedNodes[0]).parent().attr('class').indexOf("embed-thumbnail-video") == -1:true)) {
         $(e.addedNodes[0])
             .one("mousedown.resizex", function() {
                 resizexWidth = $(this).width();
