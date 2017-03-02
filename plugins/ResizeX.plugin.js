@@ -40,6 +40,34 @@ ResizeX.prototype.stop = function() {
     $(document).add("*").off(".resizex");
 };
 
+ResizeX.prototype.onSwitch = function() {
+    $("img[src*='discordapp']")
+        .one("mousedown.resizex", function() {
+            resizexWidth = $(this).width();
+            $(this)
+                .attr("src", $(this).attr("src").split("?")[0])
+                .attr("height", "")
+                .attr("width", "")
+                .attr("draggable", "false")
+                .width(resizexWidth)
+                .css("min-width", resizexWidth)
+                .css("max-width", "none")
+                .parent().attr("draggable", "false");
+        })
+        .on("mousedown.resizex", function(e) {
+            resizexImage = this;
+            resizexWidth = $(this).width();
+            resizexX = e.pageX;
+            resizexY = e.pageY;
+            resizexDragging = false;
+        })
+        .parent()
+        .on("click.resizex", function() {
+            if (resizexDragging)
+                return false;
+        });
+};
+
 ResizeX.prototype.observer = function(e) {
     if (e.addedNodes.length && e.addedNodes[0].classList && e.addedNodes[0].classList.contains("embed-thumbnail-video")) {
         $("<div class='resizex-handle'><div class='resizex-icon'/></div>")
@@ -53,9 +81,9 @@ ResizeX.prototype.observer = function(e) {
                 BdApi.injectCSS("resizex-dragging", "iframe{pointer-events:none;}*{-webkit-user-select:none!important;cursor:nwse-resize!important;}");
             });
     }
-    if (e.addedNodes.length && $(e.addedNodes[0]).attr("src") && $(e.addedNodes[0]).attr("src").indexOf("discordapp")!=-1 && $(e.addedNodes[0]).parent().attr('class').indexOf("embed-thumbnail-video")==-1) {
+    if (e.addedNodes.length && $(e.addedNodes[0]).attr("src") && $(e.addedNodes[0]).attr("src").indexOf("discordapp") != -1 && $(e.addedNodes[0]).parent().attr('class').indexOf("embed-thumbnail-video") == -1) {
         $(e.addedNodes[0])
-		    .one("mousedown.resizex", function() {
+            .one("mousedown.resizex", function() {
                 resizexWidth = $(this).width();
                 $(this)
                     .attr("src", $(this).attr("src").split("?")[0])
@@ -73,7 +101,9 @@ ResizeX.prototype.observer = function(e) {
                 resizexX = e.pageX;
                 resizexY = e.pageY;
                 resizexDragging = false;
-            }).parent().on("click.resizex", function() {
+            })
+            .parent()
+            .on("click.resizex", function() {
                 if (resizexDragging)
                     return false;
             });
