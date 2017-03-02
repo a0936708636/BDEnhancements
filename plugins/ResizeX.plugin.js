@@ -53,7 +53,7 @@ ResizeX.prototype.observer = function(e) {
                 BdApi.injectCSS("resizex-dragging", "iframe{pointer-events:none;}*{-webkit-user-select:none!important;cursor:nwse-resize!important;}");
             });
     }
-    if (e.addedNodes.length && $(e.addedNodes[0]).attr("src") && $(e.addedNodes[0]).attr("src").indexOf("discordapp")!=-1) {
+    if (e.addedNodes.length && $(e.addedNodes[0]).attr("src") && $(e.addedNodes[0]).attr("src").indexOf("discordapp")!=-1 && !$(e.addedNodes[0]).parent().attr('class').contains("embed-thumbnail-video")) {
         $(e.addedNodes[0])
 		    .one("mousedown.resizex", function() {
                 resizexWidth = $(this).width();
@@ -93,7 +93,7 @@ ResizeX.prototype.getDescription = function() {
 };
 
 ResizeX.prototype.getVersion = function() {
-    return "0.1.0";
+    return "0.1.1";
 };
 
 ResizeX.prototype.getAuthor = function() {
