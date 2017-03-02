@@ -40,34 +40,6 @@ ResizeX.prototype.stop = function() {
     $(document).add("*").off(".resizex");
 };
 
-/*ResizeX.prototype.onSwitch = function() {
-    $("img[src*='discordapp']")
-        .one("mousedown.resizex", function() {
-            resizexWidth = $(this).width();
-            $(this)
-                .attr("src", $(this).attr("src").split("?")[0])
-                .attr("height", "")
-                .attr("width", "")
-                .attr("draggable", "false")
-                .width(resizexWidth)
-                .css("min-width", resizexWidth)
-                .css("max-width", "none")
-                .parent().attr("draggable", "false");
-        })
-        .on("mousedown.resizex", function(e) {
-            resizexImage = this;
-            resizexWidth = $(this).width();
-            resizexX = e.pageX;
-            resizexY = e.pageY;
-            resizexDragging = false;
-        })
-        .parent()
-        .on("click.resizex", function() {
-            if (resizexDragging)
-                return false;
-        });
-};*/
-
 ResizeX.prototype.observer = function(e) {
     if (e.addedNodes.length && e.addedNodes[0].classList && e.addedNodes[0].classList.contains("embed-thumbnail-video")) {
         $("<div class='resizex-handle'><div class='resizex-icon'/></div>")
