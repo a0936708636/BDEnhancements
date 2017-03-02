@@ -53,7 +53,7 @@ ResizeX.prototype.observer = function(e) {
                 BdApi.injectCSS("resizex-dragging", "iframe{pointer-events:none;}*{-webkit-user-select:none!important;cursor:nwse-resize!important;}");
             });
     }
-    if (e.addedNodes.length && $(e.addedNodes[0]).attr("src") && $(e.addedNodes[0]).attr("src").indexOf("discordapp")!=-1 && !$(e.addedNodes[0]).parent().attr('class').indexOf("embed-thumbnail-video")!=-1) {
+    if (e.addedNodes.length && $(e.addedNodes[0]).attr("src") && $(e.addedNodes[0]).attr("src").indexOf("discordapp")!=-1 && $(e.addedNodes[0]).parent().attr('class').indexOf("embed-thumbnail-video")!=-1) {
         $(e.addedNodes[0])
 		    .one("mousedown.resizex", function() {
                 resizexWidth = $(this).width();
