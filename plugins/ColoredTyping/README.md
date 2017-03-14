@@ -1,6 +1,6 @@
-# ColoredTyping
+## [Download Here](https://raw.githubusercontent.com/Anxeal/BDEnhancements/master/plugins/ColoredTyping/ColoredTyping.plugin.js)
 
-## [Download Here](ColoredTyping.plugin.js)
+# ColoredTyping
 
 Make the text color of the "typing..." text same as role color
 
