@@ -1,3 +1,7 @@
+# ColoredTyping
+
+## [Download Here](ColoredTyping.plugin.js)
+
 Make the text color of the "typing..." text same as role color
 
 ### Contributions
