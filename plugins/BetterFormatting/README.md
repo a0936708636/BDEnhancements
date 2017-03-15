@@ -11,6 +11,8 @@ The new tags this plugin adds convert the Latin characters into Unicode characte
 ### Formatting Toolbar
 BetterFormatting adds a handy toolbar to make formatting easier. Click the buttons to insert tags or surround the selected text with tags.
 
+![BetterFormatting Toolbar](https://my.mixtape.moe/tgzkvq.png)
+
 ### New Formatting Options
 
 #### Superscript (^)
