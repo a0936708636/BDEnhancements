@@ -9,7 +9,9 @@ The new tags this plugin adds convert the Latin characters into Unicode characte
 ## Features
 
 ### Formatting Toolbar
-BetterFormatting adds a handy toolbar to make formatting easier. Click the buttons to insert tags or surround the selected text with tags.
+BetterFormatting adds a handy toolbar to make formatting easier.
+
+Click the buttons to insert tags or surround the selected text with tags.
 
 ![BetterFormatting Toolbar](https://my.mixtape.moe/tgzkvq.png)
 
@@ -29,6 +31,7 @@ BetterFormatting adds a handy toolbar to make formatting easier. Click the butto
 
 #### Escaping Unwanted Tags (\\)
 Put a backslash before the tags if you them to be rendered normally.
+
 `\#Sample Text\#` will show up as \#Sample Text\#
 
 ## Coming Soon
