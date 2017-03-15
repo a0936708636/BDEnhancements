@@ -2,68 +2,95 @@
 
 var BetterFormatting = function() {};
 
-var replaceList = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-=()[]{},'";
-var smallCapsList = "ABCDEFGHIJKLMNOPQRSTUVWXYZᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ0123456789+-=()[]{},'";
-var superscriptList = "ᴬᴮᶜᴰᴱᶠᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾQᴿˢᵀᵁⱽᵂˣʸᶻᵃᵇᶜᵈᵉᶠᵍʰᶦʲᵏˡᵐⁿᵒᵖᑫʳˢᵗᵘᵛʷˣʸᶻ⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻⁼⁽⁾[]{},'";
-var upsideDownList = "∀qƆpƎℲפHIſʞ˥WNOԀQɹS┴∩ΛMX⅄Zɐqɔpǝɟƃɥᴉɾʞlɯuodbɹsʇnʌʍxʎz0ƖᄅƐㄣϛ9ㄥ86+-=)(][}{',";
+BetterFormatting.prototype.replaceList = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}";
+BetterFormatting.prototype.smallCapsList = " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`ᴀʙᴄᴅᴇғɢʜɪᴊᴋʟᴍɴᴏᴘǫʀsᴛᴜᴠᴡxʏᴢ{|}";
+BetterFormatting.prototype.superscriptList = " !\"#$%&'⁽⁾*⁺,⁻./⁰¹²³⁴⁵⁶⁷⁸⁹:;<⁼>?@ᴬᴮᶜᴰᴱᶠᴳᴴᴵᴶᴷᴸᴹᴺᴼᴾQᴿˢᵀᵁⱽᵂˣʸᶻ[\\]^_`ᵃᵇᶜᵈᵉᶠᵍʰᶦʲᵏˡᵐⁿᵒᵖᑫʳˢᵗᵘᵛʷˣʸᶻ{|}";
+BetterFormatting.prototype.upsideDownList = " ¡\"#$%⅋,)(*+'-˙/0ƖᄅƐㄣϛ9ㄥ86:;>=<¿@∀qƆpƎℲפHIſʞ˥WNOԀQɹS┴∩ΛMX⅄Z]\\[^‾,ɐqɔpǝɟƃɥᴉɾʞlɯuodbɹsʇnʌʍxʎz}|{";
+BetterFormatting.prototype.fullwidthList = "　！＂＃＄％＆＇（）＊＋，－．／０１２３４５６７８９：；＜＝＞？＠ＡＢＣＤＥＦＧＨＩＪＫＬＭＮＯＰＱＲＳＴＵＶＷＸＹＺ［＼］＾＿｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝";
 
-var toolbarString = "<div class='bf-toolbar'><div><b>Bold</b></div><div><i>Italic</i></div><div><u>Underline</u></div><div><s>Strikethtough</s></div><div style='font-family:monospace;'>Code</div><div>ˢᵘᵖᵉʳˢᶜʳᶦᵖᵗ</div><div>SᴍᴀʟʟCᴀᴘs</div><div>uʍopǝpᴉsd∩</div></div></div>";
+BetterFormatting.prototype.toolbarString = "<div class='bf-toolbar'><div><b>Bold</b></div><div><i>Italic</i></div><div><u>Underline</u></div><div><s>Strikethrough</s></div><div style='font-family:monospace;'>Code</div><div>ˢᵘᵖᵉʳˢᶜʳᶦᵖᵗ</div><div>SᴍᴀʟʟCᴀᴘs</div><div>Ｆｕｌｌｗｉｄｔｈ</div><div>uʍopǝpᴉsd∩</div></div></div>";
 
-var wrappers = ["**", "*", "__", "~~", "`", "^", "%", "&"];
+BetterFormatting.prototype.wrappers = ["**", "*", "__", "~~", "`", "^", "%", "#", "&"];
 
 BetterFormatting.prototype.format = function(e) {
     if (e.shiftKey || e.which != 13) return;
     $textarea = $(e.currentTarget);
     var text = $textarea.val();
-    var len = text.length;
-    for (var i = 0; i < len; i++) {
+    for (var i = 0; i < text.length; i++) {
+        var len = text.length;
         switch (text[i]) {
-            case "\\":
-                i++;
-                break;
             case "`":
-                i = text.indexOf("`", i + 1);
+                next = text.indexOf("`", i + 1);
+                if (next != -1)
+                    i = next;
                 break;
             case "^":
+                // TODO: write a function for replacement
+                if (text[i - 1] == "\\") {
+                    text = text.substring(0, i - 1) + text.substring(i--);
+                    break;
+                }
                 var next = text.indexOf("^", i + 1);
                 if (next != -1) {
                     text = text.replace(new RegExp(`([^]{${i}})\\^([^]*)\\^([^]{${len - next - 1}})`), (match, before, middle, after) => {
                         middle = middle.replace(/./g, letter => {
-                            var index = replaceList.indexOf(letter);
-                            return index != -1 ? superscriptList[index] : letter;
+                            var index = this.replaceList.indexOf(letter);
+                            return index != -1 ? this.superscriptList[index] : letter;
                         })
                         return before + middle + after;
                     });
                     i = next - 2;
-                    len -= 2;
                 }
                 break;
             case "%":
+                if (text[i - 1] == "\\") {
+                    text = text.substring(0, i - 1) + text.substring(i--);
+                    break;
+                }
                 var next = text.indexOf("%", i + 1);
                 if (next != -1) {
                     text = text.replace(new RegExp(`([^]{${i}})%([^]*)%([^]{${len - next - 1}})`), (match, before, middle, after) => {
                         middle = middle.replace(/./g, letter => {
-                            var index = replaceList.indexOf(letter);
-                            return index != -1 ? smallCapsList[index] : letter;
+                            var index = this.replaceList.indexOf(letter);
+                            return index != -1 ? this.smallCapsList[index] : letter;
                         })
                         return before + middle + after;
                     });
                     i = next - 2;
-                    len -= 2;
+                }
+                break;
+            case "#":
+                if (text[i - 1] == "\\") {
+                    text = text.substring(0, i - 1) + text.substring(i--);
+                    break;
+                }
+                var next = text.indexOf("#", i + 1);
+                if (next != -1) {
+                    text = text.replace(new RegExp(`([^]{${i}})#([^]*)#([^]{${len - next - 1}})`), (match, before, middle, after) => {
+                        middle = middle.replace(/./g, letter => {
+                            var index = this.replaceList.indexOf(letter);
+                            return index != -1 ? this.fullwidthList[index] : letter;
+                        })
+                        return before + middle + after;
+                    });
+                    i = next - 2;
                 }
                 break;
             case "&":
+                if (text[i - 1] == "\\") {
+                    text = text.substring(0, i - 1) + text.substring(i--);
+                    break;
+                }
                 var next = text.indexOf("&", i + 1);
                 if (next != -1) {
                     text = text.replace(new RegExp(`([^]{${i}})&([^]*)&([^]{${len - next - 1}})`), (match, before, middle, after) => {
                         middle = middle.replace(/./g, letter => {
-                            var index = replaceList.indexOf(letter);
-                            return index != -1 ? upsideDownList[index] : letter;
+                            var index = this.replaceList.indexOf(letter);
+                            return index != -1 ? this.upsideDownList[index] : letter;
                         })
                         return before + middle.split("").reverse().join("") + after;
                     });
                     i = next - 2;
-                    len -= 2;
                 }
                 break;
         }
@@ -88,25 +115,44 @@ BetterFormatting.prototype.wrapSelection = function(textarea, wrapper) {
 
 BetterFormatting.prototype.showToolbar = function(e) {
     $textarea = $(e.currentTarget);
-    $textarea.parent().siblings(".bf-toolbar").stop().fadeIn();
+    $textarea.parent().siblings(".bf-toolbar").stop().slideDown();
 }
 
 BetterFormatting.prototype.hideToolbar = function(e) {
     $textarea = $(e.currentTarget);
-    $textarea.parent().siblings(".bf-toolbar").stop().fadeOut();
+    $textarea.parent().siblings(".bf-toolbar").stop().slideUp();
 }
 
 BetterFormatting.prototype.addToolbar = function($textarea) {
+    var hoverInterval;
     $textarea
         .on("keypress.betterformatting", this.format)
         .on("focus.betterformatting", this.showToolbar)
         .on("blur.betterformatting", this.hideToolbar)
-        .parent().after(toolbarString)
-        .siblings(".bf-toolbar").find("div")
-        .on("click.betterformatting", (e) => {
+        .parent().after(this.toolbarString)
+        .siblings(".bf-toolbar")
+        .on("mousemove.betterformatting", (e) => {
+            $this = $(e.currentTarget);
+            var pos = e.pageX - $this.parent().offset().left;
+            var diff = -$this.width();
+            $this.children().each((index, elem)=>{
+                diff+=$(elem).outerWidth();
+            });
+            $this.scrollLeft(pos/$this.width()*diff);
+        })
+        .on("mouseenter.betterformatting", () => {
+            hoverInterval = setInterval(() => {
+                $textarea.focus();
+            }, 10);
+        })
+        .on("mouseleave.betterformatting", () => {
+            clearInterval(hoverInterval);
+        })
+        .on("click.betterformatting", "div", (e) => {
             $button = $(e.currentTarget);
-            this.wrapSelection($textarea[0], wrappers[$button.index()]);
-        });
+            this.wrapSelection($textarea[0], this.wrappers[$button.index()]);
+        })
+        .show();
 };
 
 // unused
@@ -122,22 +168,25 @@ BetterFormatting.prototype.start = function() {
     });
     BdApi.injectCSS("bf-style", `
 .bf-toolbar {
-    position: absolute;
-    padding: 10px;
     user-select: none;
-    display: none;
-    border-radius: 5px;
-    background: #333;
-    transform: translateY(-5px);
+    overflow: hidden;
+    width: calc(100% - 30px);
+    white-space: nowrap;
+    font-size:85%;
+    height:auto;
+    display:flex;
+    padding:0px 10px;
 }
 .bf-toolbar div {
     display: inline;
     padding: 7px 5px;
     transition: all .2s ease;
     cursor: pointer;
+    display : inline-flex;
+    align-items : center;
 }
 .bf-toolbar div:hover {
-    background: #666;
+    background: rgba(102,102,102,.5);
 }
 `);
 };
@@ -147,7 +196,6 @@ BetterFormatting.prototype.stop = function() {
     $(".bf-toolbar").remove();
     BdApi.clearCSS("bf-style");
 };
-
 
 BetterFormatting.prototype.observer = function(e) {
     if (!e.addedNodes.length) return;
@@ -173,7 +221,7 @@ BetterFormatting.prototype.getDescription = function() {
 };
 
 BetterFormatting.prototype.getVersion = function() {
-    return "0.1.2";
+    return "0.2.0";
 };
 
 BetterFormatting.prototype.getAuthor = function() {
