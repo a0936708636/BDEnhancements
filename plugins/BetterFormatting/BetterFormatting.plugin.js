@@ -25,6 +25,11 @@ BetterFormatting.prototype.format = function(e) {
                 if (next != -1)
                     i = next;
                 break;
+            case "@":
+                var match = /@.*#[0-9]*/.exec(text.substring(i))
+                if(match && match.index == 0)
+                    i += match[0].length - 1;
+                break;
             case "^":
                 // TODO: write a function for replacement
                 if (text[i - 1] == "\\") {
