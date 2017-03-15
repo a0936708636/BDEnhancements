@@ -30,7 +30,7 @@ Click the buttons to insert tags or surround the selected text with tags.
 `&Sample Text&` will show up as ʇxǝ┴ ǝldɯɐS
 
 #### Escaping Unwanted Tags (\\)
-Put a backslash before the tags if you them to be rendered normally.
+Put a backslash before the tags if you want them to be rendered normally.
 
 `\#Sample Text\#` will show up as \#Sample Text\#
 
