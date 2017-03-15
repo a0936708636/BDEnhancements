@@ -16,6 +16,7 @@ BetterFormatting.prototype.format = function(e) {
     if (e.shiftKey || e.which != 13) return;
     $textarea = $(e.currentTarget);
     var text = $textarea.val();
+    var bf = BdApi.getPlugin("Better Formatting");
     for (var i = 0; i < text.length; i++) {
         var len = text.length;
         switch (text[i]) {
@@ -34,8 +35,8 @@ BetterFormatting.prototype.format = function(e) {
                 if (next != -1) {
                     text = text.replace(new RegExp(`([^]{${i}})\\^([^]*)\\^([^]{${len - next - 1}})`), (match, before, middle, after) => {
                         middle = middle.replace(/./g, letter => {
-                            var index = this.replaceList.indexOf(letter);
-                            return index != -1 ? this.superscriptList[index] : letter;
+                            var index = bf.replaceList.indexOf(letter);
+                            return index != -1 ? bf.superscriptList[index] : letter;
                         })
                         return before + middle + after;
                     });
@@ -51,8 +52,8 @@ BetterFormatting.prototype.format = function(e) {
                 if (next != -1) {
                     text = text.replace(new RegExp(`([^]{${i}})%([^]*)%([^]{${len - next - 1}})`), (match, before, middle, after) => {
                         middle = middle.replace(/./g, letter => {
-                            var index = this.replaceList.indexOf(letter);
-                            return index != -1 ? this.smallCapsList[index] : letter;
+                            var index = bf.replaceList.indexOf(letter);
+                            return index != -1 ? bf.smallCapsList[index] : letter;
                         })
                         return before + middle + after;
                     });
@@ -68,8 +69,8 @@ BetterFormatting.prototype.format = function(e) {
                 if (next != -1) {
                     text = text.replace(new RegExp(`([^]{${i}})#([^]*)#([^]{${len - next - 1}})`), (match, before, middle, after) => {
                         middle = middle.replace(/./g, letter => {
-                            var index = this.replaceList.indexOf(letter);
-                            return index != -1 ? this.fullwidthList[index] : letter;
+                            var index = bf.replaceList.indexOf(letter);
+                            return index != -1 ? bf.fullwidthList[index] : letter;
                         })
                         return before + middle + after;
                     });
@@ -85,8 +86,8 @@ BetterFormatting.prototype.format = function(e) {
                 if (next != -1) {
                     text = text.replace(new RegExp(`([^]{${i}})&([^]*)&([^]{${len - next - 1}})`), (match, before, middle, after) => {
                         middle = middle.replace(/./g, letter => {
-                            var index = this.replaceList.indexOf(letter);
-                            return index != -1 ? this.upsideDownList[index] : letter;
+                            var index = bf.replaceList.indexOf(letter);
+                            return index != -1 ? bf.upsideDownList[index] : letter;
                         })
                         return before + middle.split("").reverse().join("") + after;
                     });
@@ -135,10 +136,10 @@ BetterFormatting.prototype.addToolbar = function($textarea) {
             $this = $(e.currentTarget);
             var pos = e.pageX - $this.parent().offset().left;
             var diff = -$this.width();
-            $this.children().each((index, elem)=>{
-                diff+=$(elem).outerWidth();
+            $this.children().each((index, elem) => {
+                diff += $(elem).outerWidth();
             });
-            $this.scrollLeft(pos/$this.width()*diff);
+            $this.scrollLeft(pos / $this.width() * diff);
         })
         .on("mouseenter.betterformatting", () => {
             hoverInterval = setInterval(() => {
@@ -221,7 +222,7 @@ BetterFormatting.prototype.getDescription = function() {
 };
 
 BetterFormatting.prototype.getVersion = function() {
-    return "0.2.0";
+    return "0.2.1";
 };
 
 BetterFormatting.prototype.getAuthor = function() {
