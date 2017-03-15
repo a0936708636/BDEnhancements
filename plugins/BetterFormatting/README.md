@@ -1,6 +1,6 @@
 # BetterFormatting - [Download Here](https://raw.githubusercontent.com/Anxeal/BDEnhancements/master/plugins/BetterFormatting/BetterFormatting.plugin.js)
 
-Let's you format your messages with buttons and adds more formatting options.
+Lets you format your messages with buttons and adds more formatting options.
 
 The new tags this plugin adds convert the Latin characters into Unicode characters. This has two consequences:
  1. Only Latin characters in the ASCII table will be affected by the tags. (Not really an issue if you speak English or use the English alphabet.)
@@ -30,7 +30,7 @@ Click the buttons to insert tags or surround the selected text with tags.
 `&Sample Text&` will show up as ʇxǝ┴ ǝldɯɐS
 
 #### Escaping Unwanted Tags (\\)
-Put a backslash before the tags if you want them to be rendered normally.
+Put a backslash before the tags if you want 	them to be rendered normally.
 
 `\#Sample Text\#` will show up as \#Sample Text\#
 
