@@ -9,5 +9,7 @@ A collections of BetterDiscord Enchancements made by Anxeal (hey, that's me!)
 * [HideImages](https://github.com/Anxeal/BDEnhancements/blob/master/plugins/HideImages) - Hide images on certain servers and channels
 * [HideChannel](https://github.com/Anxeal/BDEnhancements/blob/master/plugins/HideChannel) - Allows hiding channels on the channel list
 
+### Plugins I have contributed to
+
 ## Themes
 No themes made public yet!
