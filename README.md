@@ -10,6 +10,7 @@ A collections of BetterDiscord Enchancements made by Anxeal (hey, that's me!)
 * [HideChannel](https://github.com/Anxeal/BDEnhancements/blob/master/plugins/HideChannel) - Allows hiding channels on the channel list
 
 ### Plugins I have contributed to
+* [Quicksave](https://github.com/kosshishub/Quicksave-BD-plugin) - Added a download button overlay
 
 ## Themes
 No themes made public yet!
